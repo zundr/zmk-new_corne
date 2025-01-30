@@ -259,7 +259,7 @@ layers:
   - UNDO
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - RGB OFF
-  - '&rgb_ub RGB_ON'
+  - RGB ON
   - RGB EFR
   - RGB EFF
   - RGB SPD
