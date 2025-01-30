@@ -107,9 +107,9 @@
             display-name = "media";
             bindings = <
 &bt BT_CLR_ALL  &bt BT_SEL 0   &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &none                                          &mmv MOVE_UP                    &kp K_AGAIN  &kp K_PASTE  &kp K_COPY  &kp K_CUT   &kp K_UNDO   &none
-&rgb_ug RGB_OFF &rgb_ub RGB_ON &rgb_ug RGB_EFR &rgb_ug RGB_EFF &rgb_ug RGB_SPD &rgb_ug RGB_SPI                &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &kp LEFT     &kp DOWN     &kp UP      &kp RIGHT   &kp HOME     &kp END
+&rgb_ug RGB_OFF &rgb_ug RGB_ON &rgb_ug RGB_EFR &rgb_ug RGB_EFF &rgb_ug RGB_SPD &rgb_ug RGB_SPI                &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &kp LEFT     &kp DOWN     &kp UP      &kp RIGHT   &kp HOME     &kp END
 &none           &none          &none           &none           &rgb_ug RGB_BRD &rgb_ug RGB_BRI  &trans                        &mmv MOVE_DOWN                  &kp INS      &kp PG_DN    &kp PG_UP   &none       &none        &none
-                        &none   &none   &none                                                                                                                 &kp ENTER    &kp BSPC     &kp DEL
+                            &none   &none   &none                                                                                                                 &kp ENTER    &kp BSPC     &kp DEL
             >;
             sensor-bindings = <&scroll_encoder>;
         };
