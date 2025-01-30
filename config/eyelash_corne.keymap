@@ -65,7 +65,7 @@
 &trans  &kp LBKT   &kp N7   &kp N8   &kp N9   &kp RBKT                                   &mmv MOVE_UP                    &none   &none   &none   &none   &none   &none
 &trans  &kp SEMI   &kp N4   &kp N5   &kp N6   &kp EQUAL                  &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &none   &none   &none   &none   &none   &none
 &trans  &kp GRAVE  &kp N1   &kp N2   &kp N3   &kp BSLH   &trans                          &mmv MOVE_DOWN                  &none   &none   &none   &none   &none   &none
-                            &kp DOT  &kp N0   &kp MIN                                                                    &none   &none   &none
+                            &kp DOT  &kp N0   &kp MINUS                                                                  &none   &none   &none
             >;
             sensor-bindings = <&scroll_encoder>;
         };
