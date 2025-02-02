@@ -94,7 +94,7 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 // Leader key and mouse emulation
 //
 
-#include "leader.dtsi"
+// #include "leader.dtsi"
 //#include "mouse.dtsi"
 
 //
@@ -131,23 +131,6 @@ MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
 // Behaviors
 //
 / {
-    behaviors {
-        td0: td0 {
-            compatible = "zmk,behavior-tap-dance";
-            display-name = "Shift/Caps Lock Tap Dance";
-            #binding-cells = <0>;
-            bindings = <&kp LEFT_SHIFT>, <&kp CAPS>;
-        };
-
-        // &bspc_del -> tap Backspace, Shift+Backspace makes Delete
-        bspc_del: backspace_delete {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp BACKSPACE>, <&kp DELETE>;
-            mods = <(MOD_LSFT)>;
-        };
-    };
-
     rgb_encoder: rgb_encoder {
         compatible = "zmk,behavior-sensor-rotate";
         #sensor-binding-cells = <0>;
