@@ -1,3 +1,7 @@
+//
+// Based initially on github:a741725193/zmk-new_corne
+// Inspiration from github:urob/zmk-config
+//
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
@@ -6,6 +10,8 @@
 #include <dt-bindings/zmk/rgb.h>
 
 #include <input/processors.dtsi>
+
+#include "zmk-helpers/helper.h"
 
 /*
 
@@ -19,9 +25,109 @@
 
  */
 
+//
+// Global defaults
+//
+
+// Layer IDs
+#define DEF 0
+#define NAV 1
+#define FN 2
+#define NUM 3
+#define SYMBOL 4
+#define MEDIA 5
+#define SYS 6
+
+#define vvv &trans
+#define ___ &none
+
 #define ZMK_MOUSE_DEFAULT_MOVE_VAL 1200  // 600
 #define ZMK_MOUSE_DEFAULT_SCRL_VAL 20    // 10
 
+#define QUICK_TAP_MS 175
+
+&sk {
+  release-after-ms = <900>;
+  quick-release;
+};
+
+&sl { // Allow sticky mods to chord across sticky layers.
+  ignore-modifiers;
+};
+
+&lt {
+  flavor = "balanced";
+  tapping-term-ms = <200>;
+  quick-tap-ms = <QUICK_TAP_MS>;
+};
+
+
+//
+// Homerow mods
+//
+/*                KEY POSITIONS
+
+  ╭─────────────────────────╮ ╭─────────────────────────╮
+  │ LT5 LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 RT5 │
+  │ LM5 LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 RM5 │
+  │ LB5 LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 RB5 │
+  ╰───────────╮ LH2 LH1 LH0 │ │ RH0 RH1 RH2 ╭───────────╯
+              ╰─────────────╯ ╰─────────────╯ */
+
+#define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5
+#define KEYS_R RT0 RT1 RT2 RT3 RT4 RT5 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RB5
+#define THUMBS LH2 LH1 LH0 RH0 RH1 RH2
+
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                 \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";            \
+               tapping-term-ms = <280>; quick-tap-ms = <QUICK_TAP_MS>;         \
+               require-prior-idle-ms = <150>; hold-trigger-on-release;         \
+               hold-trigger-key-positions = <TRIGGER_POS>;)
+
+MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS) // Left-hand HRMs.
+MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
+
+
+//
+// Leader key and mouse emulation
+//
+
+#include "leader.dtsi"
+//#include "mouse.dtsi"
+
+//
+// Nav cluster
+//
+
+// Trigger tap-action on all interrupts.
+#define MT_CORE                                                                \
+  flavor = "tap-preferred";                                                    \
+  tapping-term-ms = <220>;                                                     \
+  quick-tap-ms = <220>;                                                        \
+  hold-trigger-key-positions = <0>;
+
+&mt { MT_CORE };
+
+ZMK_HOLD_TAP(mt_home, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
+
+#define NAV_LT    &mt_home 0   LEFT  // Tap: left  | Long-tap: start of line.
+#define NAV_RT    &mt_end 0    RIGHT // Tap: right | Long-tap: end   of line.
+#define NAV_UP    &mt LC(HOME) UP    // Tap: up    | Long-tap: start of doc.
+#define NAV_DN    &mt LC(END)  DOWN  // Tap: down  | Long-tap: end   of doc.
+#define NAV_BK    &mt LC(BSPC) BSPC  // Tap: bspc  | Long-tap: delete word bwd.
+#define NAV_DEL   &mt LC(DEL)  DEL   // Tap: del   | Long-tap: delete word fwd.
+
+// Mask CTRL on left/right hold to avoid accidental jumps to start/end of doc.
+#define MASK_MODS(NAME, MODS, BINDING)                                         \
+  ZMK_MOD_MORPH(NAME, bindings = <BINDING>, <BINDING>; mods = <MODS>;)
+
+MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
+MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
+
+//
+// Behaviors
+//
 / {
     behaviors {
         td0: td0 {
@@ -29,6 +135,14 @@
             display-name = "Shift/Caps Lock Tap Dance";
             #binding-cells = <0>;
             bindings = <&kp LEFT_SHIFT>, <&kp CAPS>;
+        };
+
+        // &bspc_del -> tap Backspace, Shift+Backspace makes Delete
+        bspc_del: backspace_delete {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp BACKSPACE>, <&kp DELETE>;
+            mods = <(MOD_LSFT)>;
         };
     };
 
@@ -44,75 +158,234 @@
         bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
         tap-ms = <30>;
     };
+}
 
-    keymap {
-        compatible = "zmk,keymap";
+//
+// Custom behaviors
+//
 
-        default_layer {
-            display-name = "qwerty";
-            bindings = <
-&kp TAB    &kp Q       &kp W       &kp E        &kp R        &kp T                         &kp UP                &kp Y        &kp U       &kp I       &kp O      &kp P         &kp BSPC
-&kp LCTRL  &hm LGUI A  &hm LALT S  &hm LCTRL D  &hm LSHFT F  &kp G               &kp LEFT  &kp ENTER  &kp RIGHT  &kp H        &hm LSHFT J &hm LCTRL K &hm LALT L &hm LGUI SEMI &kp SQT
-&td0       &kp Z       &kp X       &kp C        &kp V        &kp B  &kp C_MUTE             &kp DOWN              &kp N        &kp M       &kp COMMA   &kp DOT    &kp FSLH      &kp ESC
-                                   &lt 5 ESC    &lt 2 SPACE  &lt 4 ENTER                                         &lt 4 ENTER  &lt 1 SPACE &lt 3 DEL
-            >;
-            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
-        };
+// Define mod-morph with a *single* mod trigger for less repetition.
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2)                            \
+  ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
+                bindings = <BINDING1>, <BINDING2>;)
 
-        layer_1_number {
-            display-name = "number";
-            bindings = <
-&trans  &kp LBKT   &kp N7   &kp N8   &kp N9   &kp RBKT                                   &mmv MOVE_UP                    &none   &none   &none   &none   &none   &none
-&trans  &kp SEMI   &kp N4   &kp N5   &kp N6   &kp EQUAL                  &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &none   &none   &none   &none   &none   &none
-&trans  &kp GRAVE  &kp N1   &kp N2   &kp N3   &kp BSLH   &trans                          &mmv MOVE_DOWN                  &none   &none   &none   &none   &none   &none
-                            &kp DOT  &kp N0   &kp MINUS                                                                  &none   &none   &none
-            >;
-            sensor-bindings = <&scroll_encoder>;
-        };
+// Tap: comma | Shift + tap: semicolon | Ctrl + shift + tap: <.
+SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &comma_inner_morph)
+SIMPLE_MORPH(comma_inner_morph, CTL, &kp SEMICOLON, &kp LESS_THAN)
+#define M_COMMA &comma_morph
 
-        layer_2_nav {
-            display-name = "nav";
-            bindings = <
-&none   &none   &none   &none   &none   &none                                &mmv MOVE_UP                    &kp K_AGAIN  &kp K_PASTE  &kp K_COPY  &kp K_CUT   &kp K_UNDO   &none
-&none   &none   &none   &none   &none   &none                &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &kp LEFT     &kp DOWN     &kp UP      &kp RIGHT   &kp HOME     &kp END
-&none   &none   &none   &none   &none   &none  &trans                        &mmv MOVE_DOWN                  &kp INS      &kp PG_DN    &kp PG_UP   &none       &none        &none
-                        &none   &none   &none                                                                &kp ENTER    &kp BSPC     &kp DEL
-            >;
-            sensor-bindings = <&scroll_encoder>;
-        };
+// Tap: dot | Shift + tap: colon | Ctrl + shift + tap: >.
+SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
+SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
+#define M_DOT &dot_morph
 
-        layer_3_function {
-            display-name = "function";
-            bindings = <
-&kp F13   &kp F12   &kp F7   &kp F8   &kp F9   &kp PSCRN                                  &mmv MOVE_UP                    &none   &none   &none   &none   &none   &none
-&kp F14   &kp F11   &kp F4   &kp F5   &kp F6   &kp SCLK                   &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &none   &none   &none   &none   &none   &none
-&kp F15   &kp F10   &kp F1   &kp F2   &kp F3   &kp PAUSE_BREAK  &trans                    &mmv MOVE_DOWN                  &none   &none   &none   &none   &none   &none
-                            &kp K_APP &kp SPC  &kp ENTER                                                                  &none   &none   &none
-            >;
-            sensor-bindings = <&scroll_encoder>;
-        };
+// Tap: qmark | Shift + tap: excl.
+SIMPLE_MORPH(qexcl, SFT, &kp QMARK, &kp EXCL)
+#define M_QEX &qexcl
 
-        layer_4_symbol {
-            display-name = "symbol";
-            bindings = <
-&none  &kp LBRC   &kp AMPS   &kp ASTRK  &kp LPAR   &kp RBRC                           &mmv MOVE_UP                      &none   &none   &none   &none   &none   &none
-&none  &kp COLON  &kp DLLR   &kp PRCNT  &kp CARET  &kp PLUS           &mmv MOVE_LEFT  &mkp LCLK       &mmv MOVE_RIGHT   &none   &none   &none   &none   &none   &none
-&none  &kp TILDE  &kp EXCL   &kp AT     &kp HASH   &kp PIPE  &trans                   &mmv MOVE_DOWN                    &none   &none   &none   &none   &none   &none
-                             &kp LPAR   &kp RPAR   &kp UNDER                                                            &none   &none   &none
-            >;
-            sensor-bindings = <&scroll_encoder>;
-        };
+// Tap: left/right parenthesis | Shft + tap: less-than/greater-than.
+SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
+SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
 
-        layer_5_media {
-            display-name = "media";
-            bindings = <
-&bt BT_CLR_ALL  &bt BT_SEL 0   &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &none                                          &mmv MOVE_UP                    &kp K_AGAIN  &kp K_PASTE  &kp K_COPY  &kp K_CUT   &kp K_UNDO   &none
-&rgb_ug RGB_OFF &rgb_ug RGB_ON &rgb_ug RGB_EFR &rgb_ug RGB_EFF &rgb_ug RGB_SPD &rgb_ug RGB_SPI                &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &kp LEFT     &kp DOWN     &kp UP      &kp RIGHT   &kp HOME     &kp END
-&none           &none          &none           &none           &rgb_ug RGB_BRD &rgb_ug RGB_BRI  &trans                        &mmv MOVE_DOWN                  &kp INS      &kp PG_DN    &kp PG_UP   &none       &none        &none
-                            &none   &none   &none                                                                                                                 &kp ENTER    &kp BSPC     &kp DEL
-            >;
-            sensor-bindings = <&scroll_encoder>;
-        };
-    };
-};
+// Tap: space | Shift + tap: dot -> space -> sticky shift | Hold: nav layer.
+ZMK_HOLD_TAP(lt_spc, bindings = <&mo>, <&spc_morph>; flavor = "balanced";
+             tapping-term-ms = <200>; quick-tap-ms = <QUICK_TAP_MS>;)
+SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
+ZMK_MACRO(dot_spc, bindings = <&kp DOT &kp SPACE &sk LSHFT>; wait-ms = <0>;
+          tap-ms = <5>;)
+
+// Tap: backspace | Lshft + tap: delete | Rshft + tap: shift-delete.
+ZMK_MOD_MORPH(bs_del, bindings = <&kp BSPC>, <&kp DEL>;
+              mods = <(MOD_LSFT|MOD_RSFT)>; keep-mods = <MOD_RSFT>;)
+
+// Tap: copy | double-tap: cut.
+ZMK_TAP_DANCE(copy_cut, bindings = <&kp LC(INS)>, <&kp LC(X)>;
+              tapping-term-ms = <200>;)
+
+// Sticky shift + leader.
+ZMK_MACRO(leader_sft, bindings = <&sk LSHFT &leader>;)
+
+//
+// Aliases
+//
+
+// Homerow mods
+#define H_A &hml LGUI A
+#define H_R &hml LALT R
+#define H_S &hml LSHFT S
+#define H_T &hml LCTRL T
+#define H_N &hmr LCTRL N
+#define H_E &hmr RSHFT E
+#define H_I &hmr LALT I
+#define H_O &hmr LGUI O
+
+// Mouse
+#define M_UP &mmv MOVE_UP
+#define M_LT &mmv MOVE_LEFT
+#define M_RT &mmv MOVE_RIGHT
+#define M_DN &mmv MOVE_DOWN
+#define M_CK1 &mkp LCLK
+#define M_CK2 &mkp RCLK
+#define M_CK3 &mkp MCLK
+
+// Shorter aliases
+#define K_HM   &kp HOME
+#define K_ED   &kp END
+#define K_PGDN &kp PG_DN
+#define K_PGUP &kp PG_UP
+
+// Thumbs
+#define SPC_NAV &lt_spc NAV 0
+#define RET_FN &lt FN RET
+#define RET_NUM &lt NUM RET
+#define SPC_SYM &lt_spc SYMBOL 0
+#define DEL_MEDIA &lt MEDIA DEL
+
+// Bluetooth
+#define BT_S0 &bt BT_SEL 0
+#define BT_S1 &bt BT_SEL 1
+#define BT_S2 &bt BT_SEL 2
+#define BT_S3 &bt BT_SEL 3
+#define BT_S4 &bt BT_SEL 4
+#define BT_CL &bt BT_CLR_ALL
+
+// Leds
+#define LED_ON  &rgb_ug RGB_ON
+#define LED_OFF &rgb_ug RGB_OFF
+#define LED_EFR &rgb_ug RGB_EFR
+#define LED_EFF &rgb_ug RGB_EFF
+#define LED_SPD &rgb_ug RGB_SPD
+#define LED_SPI &rgb_ug RGB_SPI
+#define LED_BRD &rgb_ug RGB_BRD
+#define LED_BRI &rgb_ug RGB_BRI
+
+// Encoder
+#define ENC_VOL  &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
+#define MUTE     &kp C_MUTE
+
+// Others
+#define K_PAUSE  &kp PAUSE_BREAK
+
+//
+// Layers
+//
+
+ZMK_LAYER(Base,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+  &kp TAB &kp Q   &kp W   &kp F   &kp P   &kp B                      &kp UP              &kp J   &kp L   &kp U   &kp Y  &kp SQT  ___
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+ &kp LCTRL H_A     H_R     H_S     H_T    &kp G             &kp LEFT &kp RET &kp RIGHT   &kp M    H_N     H_E     H_I     H_O    ___
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+ &kp LSHFT &kp Z  &kp X   &kp C   &kp D   &kp V    MUTE              &kp DOWN            &kp K   &kp H   M_COMMA  M_DOT  M_QEX   ___
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
+                                   LGUI   SPC_NAV  RET_FN                        RET_NUM SPC_SYM DEL_MEDIA
+//                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
+//  ╭──────────────────╮
+  ,   ENC_VOL
+//  ╰──────────────────╯
+)
+
+ZMK_LAYER(Nav,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+    ___     ___     ___     ___     ___     ___                        M_UP              &kp INS NAV_BK  NAV_DEL  ___     ___     ___     ___
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+    ___    LGUI    LALT    LCTRL   LSHFT    ___                M_LT    M_CK1    M_RT      NAV_LT  NAV_DN  NAV_UP  NAV_RT &kp RET  ___
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+    ___     ___     ___     ___     ___     ___     ___                M_DOWN            K_HM    K_PGDN  K_PKUP  K_ED     ___     ___     ___     ___
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────╯           ╰───────╯          ├───────┼───────┼───────┴───────┴──────┴──────╯
+                           ___     ___     ___                                            M_CK1   M_CK3   M_CK2
+//                       ╰───────┴───────┴───────╯                                      ╰───────┴───────┴───────╯
+//  ╭───────────────────╮
+  ,    &scroll_encoder
+//  ╰───────────────────╯
+)
+
+ZMK_LAYER(Fn,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+    ___   &kp F12 &kp F7  &kp F8  &kp F9  &kp PSCRN                     M_UP               ___     ___     ___     ___     ___    ___
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+    ___   &kp F11 &kp F4  &kp F5  &kp F6  &kp SCLK             M_LT    M_CK1    M_RT       ___    RSHFT   LCTRL   LALT    LGUI    ___
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+    ___   &kp F10 &kp F1  &kp F2  &kp F3  K_PAUSE   ___                M_DOWN              ___     ___     ___     ___     ___    ___
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
+                                  &kp APP   vvv     vvv                            ___     ___     ___
+//                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
+//  ╭───────────────────╮
+  ,    &scroll_encoder
+//  ╰───────────────────╯
+)
+
+ZMK_LAYER(Num,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+ &kp PLUS &kp MINUS &kp N7 &kp N8  &kp N9  &kp DOT                     M_UP               ___     ___     ___     ___     ___    ___
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+ &kp ASTRK &kp FSLH &kp N4 &kp N5  &kp N6 &kp COMMA            M_LT    M_CK1    M_RT       ___    RSHFT   LCTRL   LALT    LGUI   ___
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+ &kp LPAR &kp RPAR &kp N1  &kp N2  &kp N3 &kp DLLR  ___                M_DOWN              ___     ___     ___     ___     ___    ___
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
+                                  &kp N0    vvv     vvv                            ___     ___     ___
+//                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
+//  ╭───────────────────╮
+  ,    &scroll_encoder
+//  ╰───────────────────╯
+)
+
+ZMK_LAYER(Symbol,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+&kp GRAVE &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT                   M_UP               ___     ___     ___     ___     ___     ___
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+&kp EQUAL &kp CARET &kp AMPS &kp ASTRK &kp COLON &kp PIPE      M_LT    M_CK1    M_RT       ___    RSHFT   LCTRL   LALT    LGUI    ___
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+ &kp BSLH &kp UNDER &kp LBRC &kp RBRC &kp LBKT &kp RBKT  vvv           M_DOWN             ___     ___     ___     ___     ___     ___
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
+                                &kp LPAR &kp RPAR &kp SEMI                          ___     ___     ___
+//                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
+//  ╭───────────────────╮
+  ,    &scroll_encoder
+//  ╰───────────────────╯
+)
+//         layer_1_number {
+//             display-name = "number";
+//             bindings = <
+// &trans  &kp LBKT   &kp N7   &kp N8   &kp N9   &kp RBKT                                   &mmv MOVE_UP                    &none   &none   &none   &none   &none   &none
+// &trans  &kp SEMI   &kp N4   &kp N5   &kp N6   &kp EQUAL                  &mmv MOVE_LEFT  &mkp LCLK      &mmv MOVE_RIGHT  &none   &none   &none   &none   &none   &none
+// &trans  &kp GRAVE  &kp N1   &kp N2   &kp N3   &kp BSLH   &trans                          &mmv MOVE_DOWN                  &none   &none   &none   &none   &none   &none
+//                             &kp DOT  &kp N0   &kp MINUS                                                                  &none   &none   &none
+//             >;
+//             sensor-bindings = <&scroll_encoder>;
+//         };
+
+// TODO: add media controls
+ZMK_LAYER(Media,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+    ___     ___     ___     ___     ___     ___                        M_UP               ___     ___     ___     ___     ___     ___
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+    ___     ___     ___     ___     ___     ___                M_LT    M_CK1    M_RT       ___     ___     ___     ___    ___     ___
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+    ___     ___     ___     ___     ___     ___     ___                M_DOWN             ___     ___     ___     ___     ___     ___
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
+                                    ___     ___     ___                            ___     ___     ___
+//                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
+//  ╭───────────────────╮
+  ,    &scroll_encoder
+//  ╰───────────────────╯
+)
+
+// Make it harder to activate to avoid accidental presses
+// Needs both FN and NUM
+ZMK_CONDITIONAL_LAYER(sys, FN NUM, SYS) // FN + NUM --> SYS.
+ZMK_LAYER(Sys,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+   BT_S0   BT_S1   BT_S2   BT_S3   BT_S4   BT_CL                       M_UP               ___     ___     ___     ___     ___     ___
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+  LED_OFF LED_ON    ___     ___     ___     ___                M_LT    M_CK1    M_RT       ___     ___     ___     ___    ___     ___
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+  LED_BRD LED_BRI LED_SPD LED_SPI LED_EFR LED_EFF   ___                M_DOWN             ___     ___     ___     ___     ___     ___
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
+                                    ___     ___     ___                            ___     ___     ___
+//                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
+//  ╭───────────────────╮
+  ,    &rgb_encoder
+//  ╰───────────────────╯
+)
 

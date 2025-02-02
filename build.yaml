@@ -6,12 +6,14 @@ include:
   - board: eyelash_corne_right
     shield: nice_view
     #snippet: zmk-usb-logging
-  - board: eyelash_corne_left
-    shield: nice_view
-    snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
-    artifact-name: eyelash_corne_studio_left
+  # Settings reset works for both sides
   - board: eyelash_corne_left
     shield: settings_reset
     #snippet: zmk-usb-logging
- 
+  # Disable zmk studio firmware
+  # - board: eyelash_corne_left
+  #   shield: nice_view
+  #   snippet: studio-rpc-usb-uart
+  #   cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+  #   artifact-name: eyelash_corne_studio_left
+  #

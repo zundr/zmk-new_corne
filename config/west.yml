@@ -2,17 +2,30 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-      # Additional modules containing boards/shields/custom code can be listed here as well.
-      # See:
-      # - https://zmk.dev/docs/features/modules
-      # - https://docs.zephyrproject.org/3.5.0/develop/west/manifest.html#projects
+    - name: urob
+      url-base: https://github.com/urob
+
   projects:
+    # My keyboard layout
     - name: eyelash_corne
       url: https://github.com/zundr/zmk-new_corne
       revision: main
+
+    # ZMK firmware upstream
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
+
+    # Modules
+    - name: zmk-helpers
+      remote: urob
+      revision: v0.1
+      path: modules/zmk/helpers
+    - name: zmk-leader-key
+      remote: urob
+      revision: v0.1+locality
+      path: modules/zmk/leader-key
+
   self:
     path: config
