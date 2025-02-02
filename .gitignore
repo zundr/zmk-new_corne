@@ -1,5 +1,9 @@
-build/
-zmk/
-modules/
-tools/
-.west/
+.build
+.direnv
+.west
+modules
+firmware
+zephyr
+zmk
+draw/base.yaml
+eyelash_corne
