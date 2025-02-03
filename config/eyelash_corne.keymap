@@ -97,7 +97,7 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 // Leader key and mouse emulation
 //
 
-#include "leader.dtsi"
+//#include "leader.dtsi"
 //#include "mouse.dtsi"
 
 //
@@ -194,7 +194,7 @@ ZMK_TAP_DANCE(copy_cut, bindings = <&kp LC(INS)>, <&kp LC(X)>;
               tapping-term-ms = <200>;)
 
 // Sticky shift + leader.
-ZMK_MACRO(leader_sft, bindings = <&sk LSHFT &leader>;)
+//ZMK_MACRO(leader_sft, bindings = <&sk LSHFT &leader>;)
 
 //
 // Aliases
