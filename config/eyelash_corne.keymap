@@ -267,13 +267,13 @@ ZMK_TAP_DANCE(copy_cut, bindings = <&kp LC(INS)>, <&kp LC(X)>;
 // Layers
 //
 
-ZMK_LAYER(Base,
+ZMK_LAYER(Colemak,
 //╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
-  &kp TAB &kp Q   &kp W   &kp F   &kp P   &kp B                      &kp UP              &kp J   &kp L   &kp U   &kp Y  &kp SQT  ___
+  &kp TAB &kp Q   &kp W   &kp F   &kp P   &kp G                      &kp UP              &kp J   &kp L   &kp U   &kp Y  &kp SEMI ___
 //├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
- &kp LCTRL H_A     H_R     H_S     H_T    &kp G             &kp LEFT &kp RET &kp RIGHT   &kp M    H_N     H_E     H_I     H_O    ___
+ &kp LCTRL H_A     H_R     H_S     H_T    &kp D             &kp LEFT &kp RET &kp RIGHT   &kp H    H_N     H_E     H_I     H_O    ___
 //├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
- &kp LSHFT &kp Z  &kp X   &kp C   &kp D   &kp V    MUTE              &kp DOWN            &kp K   &kp H   M_COMMA  M_DOT  M_QEX   ___
+ &kp LSHFT &kp Z  &kp X   &kp C   &kp V   &kp B    MUTE              &kp DOWN            &kp K   &kp M   M_COMMA  M_DOT &kp FSLH   ___
 //╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
                                  &kp LGUI SPC_NAV  RET_FN                        RET_NUM SPC_SYM DEL_MEDIA
 //                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
