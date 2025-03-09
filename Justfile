@@ -107,6 +107,16 @@ update:
 upgrade-sdk:
     nix flake update --flake .
 
+# flash left side
+flash-left:
+    udisksctl mount -b /dev/sda
+    cp firmware/nice_view-eyelash_corne_left.uf2 /run/media/$USER/NICENANO
+
+# flash right side
+flash-right:
+    udisksctl mount -b /dev/sda
+    cp firmware/nice_view-eyelash_corne_right.uf2 /run/media/$USER/NICENANO
+
 [no-cd]
 test $testpath *FLAGS:
     #!/usr/bin/env bash

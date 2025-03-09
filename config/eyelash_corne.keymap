@@ -34,14 +34,15 @@
 // Global defaults
 //
 
-// Layer IDs
-#define DEF 0
-#define NAV 1
-#define FN 2
-#define NUM 3
-#define SYMBOL 4
-#define MEDIA 5
-#define SYS 6
+// Layer IDs (order here must match order of layers below)
+#define QWERTY 0
+#define COLEMAK 1
+#define NAV 2
+#define FN 3
+#define NUM 4
+#define SYMBOL 5
+#define MEDIA 6
+#define SYS 7
 
 #define vvv &trans
 #define ___ &none
@@ -196,11 +197,26 @@ ZMK_TAP_DANCE(copy_cut, bindings = <&kp LC(INS)>, <&kp LC(X)>;
 // Sticky shift + leader.
 //ZMK_MACRO(leader_sft, bindings = <&sk LSHFT &leader>;)
 
+// Combos
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        // J + K = ESC
+        combo_esc {
+            timeout-ms = <50>; // Adjust the timeout as needed
+            key-positions = <RM1 RM2>; // J K
+            bindings = <&kp ESC>;
+        };
+    };
+};
+
+
 //
 // Aliases
 //
 
-// Homerow mods (GACS)
+// Homerow mods (GACS) - Colemak
 #define H_A &hml LGUI A
 #define H_R &hml LALT R
 #define H_S &hml LCTRL S
@@ -209,6 +225,16 @@ ZMK_TAP_DANCE(copy_cut, bindings = <&kp LC(INS)>, <&kp LC(X)>;
 #define H_E &hmr LCTRL E
 #define H_I &hmr LALT I
 #define H_O &hmr LGUI O
+
+// Homerow mods (GACS) - Qwerty
+#define QH_A &hml LGUI A
+#define QH_S &hml LALT S
+#define QH_D &hml LCTRL D
+#define QH_F &hml LSHFT F
+#define QH_J &hmr RSHFT J
+#define QH_K &hmr RCTRL K
+#define QH_L &hmr RALT L
+#define QH_SEMI &hmr LGUI SEMI
 
 #define MOD_LEFT &kp LGUI &kp LALT &kp LCTRL &kp LSHFT
 #define MOD_RIGHT &kp RSHFT &kp LCTRL &kp LALT &kp LGUI
@@ -267,13 +293,28 @@ ZMK_TAP_DANCE(copy_cut, bindings = <&kp LC(INS)>, <&kp LC(X)>;
 // Layers
 //
 
+ZMK_LAYER(qwerty,
+//╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
+  &kp TAB &kp Q   &kp W   &kp E   &kp R   &kp T                      &kp UP              &kp Y   &kp U   &kp I   &kp O   &kp P  &kp BKSP
+//├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
+ &kp LCTRL QH_A   QH_S    QH_D    QH_F    &kp G            &kp LEFT &kp RET &kp RIGHT    &kp H   QH_J    QH_K    QH_L   QH_SEMI &kp RET
+//├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
+ &kp LSHFT &kp Z  &kp X   &kp C   &kp V   &kp B    MUTE              &kp DOWN            &kp N   &kp M &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+//╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
+                                 &kp LGUI SPC_NAV  RET_FN                        RET_NUM SPC_SYM DEL_MEDIA
+//                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
+//  ╭──────────────────╮
+  ,   ENC_VOL
+//  ╰──────────────────╯
+)
+
 ZMK_LAYER(Colemak,
 //╭──────┬───────┬───────┬───────┬───────┬───────╮                   ╭───────╮          ╭───────┬───────┬───────┬───────┬──────┬──────╮
-  &kp TAB &kp Q   &kp W   &kp F   &kp P   &kp G                      &kp UP              &kp J   &kp L   &kp U   &kp Y  &kp SEMI ___
+  &kp TAB &kp Q   &kp W   &kp F   &kp P   &kp G                      &kp UP              &kp J   &kp L   &kp U   &kp Y  &kp SEMI &kp BKSP
 //├──────┼───────┼───────┼───────┼───────┼───────┤           ╭───────┼───────┼───────╮  ├───────┼───────┼───────┼───────┼──────┼──────┤
- &kp LCTRL H_A     H_R     H_S     H_T    &kp D             &kp LEFT &kp RET &kp RIGHT   &kp H    H_N     H_E     H_I     H_O    ___
+ &kp LCTRL H_A     H_R     H_S     H_T    &kp D             &kp LEFT &kp RET &kp RIGHT   &kp H    H_N     H_E     H_I     H_O    &kp RET
 //├──────┼───────┼───────┼───────┼───────┼───────┼───────╮   ╰───────┼───────┼───────╯  ├───────┼───────┼───────┼───────┼──────┼──────┤
- &kp LSHFT &kp Z  &kp X   &kp C   &kp V   &kp B    MUTE              &kp DOWN            &kp K   &kp M   M_COMMA  M_DOT &kp FSLH   ___
+ &kp LSHFT &kp Z  &kp X   &kp C   &kp V   &kp B    MUTE              &kp DOWN            &kp K   &kp M   M_COMMA  M_DOT &kp FSLH &kp RSHFT
 //╰──────┴───────┴───────┴───────┼───────┼───────┼───────┤           ╰───────╯  ╭───────┼───────┼───────┼───────┴───────┴──────┴──────╯
                                  &kp LGUI SPC_NAV  RET_FN                        RET_NUM SPC_SYM DEL_MEDIA
 //                               ╰───────┴───────┴───────╯                      ╰───────┴───────┴───────╯
