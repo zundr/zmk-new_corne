@@ -37,6 +37,7 @@ _parse_combos:
 # parse build.yaml and filter targets by expression
 _parse_targets $expr:
     #!/usr/bin/env bash
+    set -x
     attrs="[.board, .shield, .snippet]"
     filter="(($attrs | map(. // [.]) | combinations), ((.include // {})[] | $attrs)) | join(\",\")"
     echo "$(yq -r "$filter" build.yaml | grep -v "^," | grep -i "${expr/#all/.*}")"
@@ -45,6 +46,7 @@ _parse_targets $expr:
 _build_single $board $shield $snippet *west_args:
     #!/usr/bin/env bash
     set -euo pipefail
+    set -x
     artifact="${shield:+${shield// /+}-}${board}"
     build_dir="{{ build / '$artifact' }}"
 

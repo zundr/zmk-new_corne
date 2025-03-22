@@ -7,9 +7,10 @@ include:
     shield: nice_view
     #snippet: zmk-usb-logging
   # Settings reset works for both sides
-  - board: eyelash_corne_left
-    shield: settings_reset
-    #snippet: zmk-usb-logging
+  # NOTE: Settings build disable to save time building
+  # - board: eyelash_corne_left
+  #   shield: settings_reset
+  #   #snippet: zmk-usb-logging
   # Disable zmk studio firmware
   # - board: eyelash_corne_left
   #   shield: nice_view
