@@ -7,7 +7,7 @@ layers:
   - E
   - R
   - T
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - Y
   - U
   - I
@@ -20,9 +20,9 @@ layers:
   - D
   - F
   - G
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - H
   - J
   - K
@@ -36,7 +36,7 @@ layers:
   - V
   - B
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - N
   - M
   - {t: ',', s: <}
@@ -56,7 +56,7 @@ layers:
   - F
   - P
   - G
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - J
   - L
   - U
@@ -69,9 +69,9 @@ layers:
   - {t: S, h: '$$mdi:apple-keyboard-control$$'}
   - {t: T, h: '$$mdi:apple-keyboard-shift$$'}
   - D
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - H
   - {t: N, h: '$$mdi:apple-keyboard-shift$$'}
   - {t: E, h: '$$mdi:apple-keyboard-control$$'}
@@ -85,7 +85,7 @@ layers:
   - V
   - B
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - K
   - M
   - {t: ',', s: <}
@@ -105,7 +105,7 @@ layers:
   - E
   - R
   - T
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - Y
   - U
   - I
@@ -118,9 +118,9 @@ layers:
   - D
   - F
   - G
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - H
   - J
   - K
@@ -134,7 +134,7 @@ layers:
   - V
   - B
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - N
   - M
   - {t: ',', s: <}
@@ -154,7 +154,7 @@ layers:
   - COPY
   - PASTE
   - AGAIN
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - AGAIN
   - PASTE
   - COPY
@@ -167,9 +167,9 @@ layers:
   - $$mdi:apple-keyboard-control$$
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:apple-keyboard-shift$$
   - $$mdi:apple-keyboard-control$$
@@ -183,7 +183,7 @@ layers:
   - PASTE
   - AGAIN
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - AGAIN
   - PASTE
   - COPY
@@ -203,7 +203,7 @@ layers:
   - '&u_to_U_EXTRA'
   - '&u_to_U_BASE'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - AGAIN
   - PASTE
   - COPY
@@ -216,9 +216,9 @@ layers:
   - $$mdi:apple-keyboard-control$$
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - $$mdi:arrow-left-bold$$
   - $$mdi:arrow-down-bold$$
   - $$mdi:arrow-up-bold$$
@@ -232,7 +232,7 @@ layers:
   - '&u_to_U_NAV'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - HOME
   - PG DN
   - PG UP
@@ -252,7 +252,7 @@ layers:
   - '&u_to_U_EXTRA'
   - '&u_to_U_BASE'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - AGAIN
   - PASTE
   - COPY
@@ -265,9 +265,9 @@ layers:
   - $$mdi:apple-keyboard-control$$
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - {t: '$$mdi:menu-left$$', s: '$$mdi:mouse$$'}
   - {t: '$$mdi:menu-down$$', s: '$$mdi:mouse$$'}
   - {t: '$$mdi:menu-up$$', s: '$$mdi:mouse$$'}
@@ -281,7 +281,7 @@ layers:
   - '&u_to_U_MOUSE'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - $$mdi:pan-left$$
   - $$mdi:pan-down$$
   - $$mdi:pan-up$$
@@ -301,7 +301,7 @@ layers:
   - '&u_to_U_EXTRA'
   - '&u_to_U_BASE'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - RGB EFF
   - RGB HUI
   - RGB SAI
@@ -314,9 +314,9 @@ layers:
   - $$mdi:apple-keyboard-control$$
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - $$mdi:skip-previous$$
   - $$mdi:volume-low$$
   - $$mdi:volume-high$$
@@ -330,7 +330,7 @@ layers:
   - '&u_to_U_MEDIA'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - {h: '1', s: '&u_macro_u_bt_sel_0'}
   - {h: '2', s: '&u_macro_u_bt_sel_1'}
   - {h: '3', s: '&u_macro_u_bt_sel_2'}
@@ -350,7 +350,7 @@ layers:
   - {t: '8', s: '*'}
   - {t: '9', s: (}
   - {t: ']', s: '}'}
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '&u_to_U_BASE'
   - '&u_to_U_EXTRA'
@@ -363,9 +363,9 @@ layers:
   - {t: '5', s: '%'}
   - {t: '6', s: ^}
   - {t: '=', s: +}
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:apple-keyboard-shift$$
   - $$mdi:apple-keyboard-control$$
@@ -379,7 +379,7 @@ layers:
   - {t: '3', s: '#'}
   - {t: \, s: '|'}
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '&u_to_U_NUM'
   - '&u_to_U_NAV'
@@ -399,7 +399,7 @@ layers:
   - '*'
   - (
   - '}'
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '&u_to_U_BASE'
   - '&u_to_U_EXTRA'
@@ -407,14 +407,14 @@ layers:
   - $$mdi:progress-download$$
   - BKSP
   - {t: '$$mdi:keyboard-esc$$', h: '$$mdi:apple-keyboard-control$$'}
-  - ':'
+  - '"'
   - $
   - '%'
   - ^
   - +
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:apple-keyboard-shift$$
   - $$mdi:apple-keyboard-control$$
@@ -428,7 +428,7 @@ layers:
   - '#'
   - '|'
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '&u_to_U_SYM'
   - '&u_to_U_MOUSE'
@@ -448,7 +448,7 @@ layers:
   - F8
   - F9
   - $$mdi:printer-outline$$
-  - $$mdi:pan-up$$
+  - $$mdi:pan-down$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '&u_to_U_BASE'
   - '&u_to_U_EXTRA'
@@ -461,9 +461,9 @@ layers:
   - F5
   - F6
   - SLCK
-  - $$mdi:pan-left$$
-  - '&mkp MB1'
   - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:apple-keyboard-shift$$
   - $$mdi:apple-keyboard-control$$
@@ -477,7 +477,7 @@ layers:
   - F3
   - PAUSE BREAK
   - $$mdi:volume-off$$
-  - $$mdi:pan-down$$
+  - $$mdi:pan-up$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '&u_to_U_FUN'
   - '&u_to_U_MEDIA'
