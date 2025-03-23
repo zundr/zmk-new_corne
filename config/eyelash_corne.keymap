@@ -7,23 +7,21 @@
 
 #define XXX &none
 
-// TODO: restore decoder and joystick
-// TODO: fix mouse movements (do they work in zmk?) -> Test MIRYOKU_KLUDGE_MOUSEKEYSPR
-// TODO: add combos? (e.g. ESC in J+K)
-// TODO: extra column keys -> what to do with them? -> Use utility keys for now
-
 #define ENC_VOL  &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
 #define CTRL_ESC &mt LEFT_CONTROL ESC
 
+// Make rotary decoder button to mute
+// Make joystick to scroll in natural mode, button to click
+//
 #define MIRYOKU_LAYOUTMAPPING_EYELASH_CORNE( \
      K00, K01, K02, K03, K04,      K05, K06, K07, K08, K09, \
      K10, K11, K12, K13, K14,      K15, K16, K17, K18, K19, \
      K20, K21, K22, K23, K24,      K25, K26, K27, K28, K29, \
      N30, N31, K32, K33, K34,      K35, K36, K37, N38, N39 \
 ) \
-U_LT(U_NUM, TAB) K00  K01  K02  K03  K04                    U_WH_U         K05  K06  K07  K08  K09  &kp BKSP \
-U_MT(LCTRL, ESC) K10  K11  K12  K13  K14             U_WH_L U_BTN1 U_WH_R  K15  K16  K17  K18  K19  U_LT(U_SYM, RET) \
-&kp LSHFT        K20  K21  K22  K23  K24  &kp C_MUTE        U_WH_D         K25  K26  K27  K28  K29  &kp RSHFT \
+U_LT(U_NUM, TAB) K00  K01  K02  K03  K04                    U_WH_D         K05  K06  K07  K08  K09  &kp BKSP \
+U_MT(LCTRL, ESC) K10  K11  K12  K13  K14             U_WH_R U_BTN1 U_WH_L  K15  K16  K17  K18  K19  U_LT(U_SYM, RET) \
+&kp LSHFT        K20  K21  K22  K23  K24  &kp C_MUTE        U_WH_U         K25  K26  K27  K28  K29  &kp RSHFT \
                            K32  K33  K34                                   K35  K36  K37
 
 #define MIRYOKU_CLIPBOARD_FUN
@@ -52,7 +50,10 @@ U_MT(LCTRL, ESC) K10  K11  K12  K13  K14             U_WH_L U_BTN1 U_WH_R  K15  
 // First left thumb -> LGUI instead of Media, Move media to a combo of both thumbs
 // Second left thumb -> LALT instead of Nav/space
 // Third left thumb -> Nav/space, mouse layer moved to combo
+// Remove homerow mods from base layer (some are still in other layers, but not bothering right now)
+// Swap semicolon/colon with apostrophe/doble-quote
 //
+/// Note: This is the old layer with homerow mods
 /// #define MIRYOKU_LAYER_BASE \
 /// &kp Q,             &kp W,             &kp E,             &kp R,             &kp T,             &kp Y,             &kp U,             &kp I,             &kp O,             &kp P,             \
 /// U_MT(LGUI, A),     U_MT(LALT, S),     U_MT(LCTRL, D),    U_MT(LSHFT, F),    &kp G,             &kp H,             U_MT(LSHFT, J),    U_MT(LCTRL, K),    U_MT(LALT, L),     U_MT(LGUI, SQT),   \
@@ -64,6 +65,7 @@ U_MT(LCTRL, ESC) K10  K11  K12  K13  K14             U_WH_L U_BTN1 U_WH_R  K15  
 U_LT(U_BUTTON, Z), U_MT(RALT, X),     &kp C,             &kp V,             &kp B,             &kp N,             &kp M,             &kp COMMA,         U_MT(RALT, DOT),   U_LT(U_BUTTON, SLASH),\
 U_NP,              U_NP,              &kp LGUI,          &kp LALT,          U_LT(U_NAV, SPACE),U_LT(U_SYM, RET),  U_LT(U_NUM, BSPC), U_LT(U_FUN, DEL),  U_NP,              U_NP
 
+// Colemak as extra layer
 #define MIRYOKU_LAYER_EXTRA \
 &kp Q,             &kp W,             &kp F,             &kp P,             &kp G,             &kp J,             &kp L,             &kp U,             &kp Y,             &kp SQT,           \
 U_MT(LGUI, A),     U_MT(LALT, R),     U_MT(LCTRL, S),    U_MT(LSHFT, T),    &kp D,             &kp H,             U_MT(LSHFT, N),    U_MT(LCTRL, E),    U_MT(LALT, I),     U_MT(LGUI, O),     \
@@ -102,13 +104,13 @@ U_NP,              U_NP,              U_NA,              U_NA,              U_NA
 
 #define MIRYOKU_LAYER_NUM \
 &kp LBKT,          &kp N7,            &kp N8,            &kp N9,            &kp RBKT,          U_NA,              &u_to_U_BASE,      &u_to_U_EXTRA,     &u_to_U_TAP,       U_BOOT,            \
-&kp SQT,          &kp N4,            &kp N5,            &kp N6,            &kp EQUAL,         U_NA,              &kp LSHFT,         &kp LCTRL,         &kp LALT,          &kp LGUI,          \
+&kp SQT,           &kp N4,            &kp N5,            &kp N6,            &kp EQUAL,         U_NA,              &kp LSHFT,         &kp LCTRL,         &kp LALT,          &kp LGUI,          \
 &kp GRAVE,         &kp N1,            &kp N2,            &kp N3,            &kp BSLH,          U_NA,              &u_to_U_NUM,       &u_to_U_NAV,       &kp RALT,          U_NA,              \
 U_NP,              U_NP,              &kp DOT,           &kp N0,            &kp MINUS,         U_NA,              U_NA,              U_NA,              U_NP,              U_NP
 
 #define MIRYOKU_LAYER_SYM \
 &kp LBRC,          &kp AMPS,          &kp ASTRK,         &kp LPAR,          &kp RBRC,          U_NA,              &u_to_U_BASE,      &u_to_U_EXTRA,     &u_to_U_TAP,       U_BOOT,            \
-&kp COLON,         &kp DLLR,          &kp PRCNT,         &kp CARET,         &kp PLUS,          U_NA,              &kp LSHFT,         &kp LCTRL,         &kp LALT,          &kp LGUI,          \
+&kp DQT,           &kp DLLR,          &kp PRCNT,         &kp CARET,         &kp PLUS,          U_NA,              &kp LSHFT,         &kp LCTRL,         &kp LALT,          &kp LGUI,          \
 &kp TILDE,         &kp EXCL,          &kp AT,            &kp HASH,          &kp PIPE,          U_NA,              &u_to_U_SYM,       &u_to_U_MOUSE,     &kp RALT,          U_NA,              \
 U_NP,              U_NP,              &kp LPAR,          &kp RPAR,          &kp UNDER,         U_NA,              U_NA,              U_NA,              U_NP,              U_NP
 
