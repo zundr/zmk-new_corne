@@ -43,7 +43,7 @@ layers:
   - {t: ., h: '$$mdi:apple-keyboard-option$$', s: '>'}
   - {t: /, h: Button, s: '?'}
   - $$mdi:apple-keyboard-shift$$
-  - LGUI
+  - {t: '$$mdi:keyboard-esc$$', h: Win}
   - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:keyboard-space$$', h: Nav}
   - {t: '$$mdi:keyboard-return$$', h: Sym}
@@ -92,7 +92,7 @@ layers:
   - {t: ., h: '$$mdi:apple-keyboard-option$$', s: '>'}
   - {t: /, h: Button, s: '?'}
   - $$mdi:apple-keyboard-shift$$
-  - LGUI
+  - {t: '$$mdi:keyboard-esc$$', h: Win}
   - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:keyboard-space$$', h: Nav}
   - {t: '$$mdi:keyboard-return$$', h: Sym}
@@ -490,6 +490,55 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: held}
+  Win:
+  - {t: '$$mdi:keyboard-tab$$', h: Num}
+  - Gui+Q
+  - {t: Gui+7, s: Gui+&}
+  - {t: Gui+8, s: Gui+*}
+  - {t: Gui+9, s: Gui+(}
+  - Gui+$$mdi:printer-outline$$
+  - $$mdi:pan-down$$
+  - Gui+R
+  - {t: Z, h: '$$mdi:apple-keyboard-command$$'}
+  - COPY
+  - CUT
+  - UNDO
+  - BKSP
+  - {t: '$$mdi:keyboard-esc$$', h: '$$mdi:apple-keyboard-control$$'}
+  - {t: A, h: '$$mdi:apple-keyboard-command$$'}
+  - {t: Gui+4, s: Gui+$}
+  - {t: Gui+5, s: Gui+%}
+  - {t: Gui+6, s: Gui+^}
+  - Gui+SLCK
+  - $$mdi:pan-right$$
+  - '&mkp MB1'
+  - $$mdi:pan-left$$
+  - Gui+H
+  - Gui+J
+  - Gui+K
+  - Gui+L
+  - {t: '$$mdi:alpha-w-box$$', s: '$$mdi:apple-keyboard-caps$$'}
+  - {t: '$$mdi:keyboard-return$$', h: Sym}
+  - $$mdi:apple-keyboard-shift$$
+  - {t: Gui+0, s: Gui+)}
+  - {t: Gui+1, s: Gui+!}
+  - {t: Gui+2, s: Gui+@}
+  - {t: Gui+3, s: Gui+#}
+  - Gui+$$mdi:keyboard-space$$
+  - $$mdi:volume-off$$
+  - $$mdi:pan-up$$
+  - HOME
+  - PG DN
+  - PG UP
+  - END
+  - INS
+  - $$mdi:apple-keyboard-shift$$
+  - {t: '$$mdi:minus-circle-outline$$', type: held}
+  - $$mdi:apple-keyboard-option$$
+  - $$mdi:keyboard-space$$
+  - {t: 'Gui+$$mdi:keyboard-return$$', type: enter}
+  - {t: 'Gui+$$mdi:backspace$$', type: backspace}
+  - $$mdi:backspace-reverse-outline$$
 combos:
 - p: [42, 43]
   k: {t: LGUI, h: Media}
