@@ -44,8 +44,8 @@ layers:
   - {t: /, h: Button, s: '?'}
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:keyboard-esc$$', h: Win}
-  - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:keyboard-space$$', h: Nav}
+  - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:keyboard-return$$', h: Sym}
   - {t: '$$mdi:backspace$$', h: Num}
   - {t: '$$mdi:backspace-reverse-outline$$', h: Fun}
@@ -93,8 +93,8 @@ layers:
   - {t: /, h: Button, s: '?'}
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:keyboard-esc$$', h: Win}
-  - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:keyboard-space$$', h: Nav}
+  - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:keyboard-return$$', h: Sym}
   - {t: '$$mdi:backspace$$', h: Num}
   - {t: '$$mdi:backspace-reverse-outline$$', h: Fun}
@@ -141,9 +141,9 @@ layers:
   - {t: ., s: '>'}
   - {t: /, s: '?'}
   - $$mdi:apple-keyboard-shift$$
-  - LGUI
-  - $$mdi:apple-keyboard-option$$
+  - $$mdi:keyboard-esc$$
   - $$mdi:keyboard-space$$
+  - $$mdi:apple-keyboard-option$$
   - {t: '$$mdi:keyboard-return$$', type: enter}
   - {t: '$$mdi:backspace$$', type: backspace}
   - $$mdi:backspace-reverse-outline$$
@@ -240,8 +240,8 @@ layers:
   - INS
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: held}
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:keyboard-return$$', type: enter}
   - {t: '$$mdi:backspace$$', type: backspace}
   - $$mdi:backspace-reverse-outline$$
@@ -387,8 +387,8 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - $$mdi:apple-keyboard-shift$$
   - {t: ., s: '>'}
-  - {t: '0', s: )}
-  - {t: '-', s: _, type: held alternate}
+  - {t: '0', s: ), type: held alternate}
+  - {t: '-', s: _}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
@@ -436,8 +436,8 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - $$mdi:apple-keyboard-shift$$
   - (
-  - )
-  - {t: _, type: held alternate}
+  - {t: ), type: held alternate}
+  - _
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
@@ -534,11 +534,11 @@ layers:
   - INS
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:minus-circle-outline$$', type: held}
-  - $$mdi:apple-keyboard-option$$
-  - $$mdi:keyboard-space$$
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: 'Gui+$$mdi:keyboard-return$$', type: enter}
   - {t: 'Gui+$$mdi:backspace$$', type: backspace}
-  - $$mdi:backspace-reverse-outline$$
+  - $$mdi:apple-keyboard-option$$
 combos:
 - p: [42, 43]
   k: {t: LGUI, h: Media}
