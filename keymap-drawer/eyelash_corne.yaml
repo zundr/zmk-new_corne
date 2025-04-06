@@ -44,10 +44,10 @@ layers:
   - {t: /, h: Button, s: '?'}
   - $$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:keyboard-esc$$', h: Win}
-  - {t: '$$mdi:keyboard-space$$', h: Nav}
   - $$mdi:apple-keyboard-option$$
-  - {t: '$$mdi:keyboard-return$$', h: Sym}
-  - {t: '$$mdi:backspace$$', h: Num}
+  - {t: '$$mdi:keyboard-space$$', h: Nav}
+  - {t: '$$mdi:keyboard-space$$', h: Nav}
+  - {t: '$$mdi:backspace$$', h: Sym}
   - {t: '$$mdi:backspace-reverse-outline$$', h: Fun}
   Extra:
   - {t: '$$mdi:keyboard-tab$$', h: Num}
@@ -198,11 +198,11 @@ layers:
   - '&mkp MB3'
   Nav:
   - {t: '$$mdi:keyboard-tab$$', h: Num}
-  - $$mdi:progress-download$$
-  - '&u_to_U_TAP'
-  - '&u_to_U_EXTRA'
-  - '&u_to_U_BASE'
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '[', s: '{'}
+  - {t: '7', s: '&'}
+  - {t: '8', s: '*'}
+  - {t: '9', s: (}
+  - {t: ']', s: '}'}
   - $$mdi:pan-down$$
   - AGAIN
   - PASTE
@@ -211,11 +211,11 @@ layers:
   - UNDO
   - BKSP
   - {t: '$$mdi:keyboard-esc$$', h: '$$mdi:apple-keyboard-control$$'}
-  - LGUI
-  - $$mdi:apple-keyboard-option$$
-  - $$mdi:apple-keyboard-control$$
-  - $$mdi:apple-keyboard-shift$$
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '''', s: '"'}
+  - {t: '4', s: $}
+  - {t: '5', s: '%'}
+  - {t: '6', s: ^}
+  - {t: '=', s: +}
   - $$mdi:pan-right$$
   - '&mkp MB1'
   - $$mdi:pan-left$$
@@ -226,11 +226,11 @@ layers:
   - {t: '$$mdi:alpha-w-box$$', s: '$$mdi:apple-keyboard-caps$$'}
   - {t: '$$mdi:keyboard-return$$', h: Sym}
   - $$mdi:apple-keyboard-shift$$
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - $$mdi:apple-keyboard-option$$
-  - '&u_to_U_NUM'
-  - '&u_to_U_NAV'
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '`', s: '~'}
+  - {t: '1', s: '!'}
+  - {t: '2', s: '@'}
+  - {t: '3', s: '#'}
+  - {t: \, s: '|'}
   - $$mdi:volume-off$$
   - $$mdi:pan-up$$
   - HOME
@@ -239,10 +239,10 @@ layers:
   - END
   - INS
   - $$mdi:apple-keyboard-shift$$
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: held}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:keyboard-return$$', type: enter}
+  - {t: ., s: '>'}
+  - {t: '0', s: ), type: held alternate}
+  - {t: '-', s: _, type: held}
+  - {t: '$$mdi:keyboard-return$$', type: held alternate}
   - {t: '$$mdi:backspace$$', type: backspace}
   - $$mdi:backspace-reverse-outline$$
   Mouse:
@@ -388,8 +388,8 @@ layers:
   - $$mdi:apple-keyboard-shift$$
   - {t: ., s: '>'}
   - {t: '0', s: ), type: held alternate}
-  - {t: '-', s: _}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '-', s: _, type: held alternate}
+  - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   Sym:
@@ -437,7 +437,7 @@ layers:
   - $$mdi:apple-keyboard-shift$$
   - (
   - {t: ), type: held alternate}
-  - _
+  - {t: _, type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: held alternate}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
@@ -503,7 +503,7 @@ layers:
   - COPY
   - CUT
   - UNDO
-  - BKSP
+  - Gui+BKSP
   - {t: '$$mdi:keyboard-esc$$', h: '$$mdi:apple-keyboard-control$$'}
   - {t: A, h: '$$mdi:apple-keyboard-command$$'}
   - {t: Gui+4, s: Gui+$}
@@ -518,7 +518,7 @@ layers:
   - Gui+K
   - Gui+L
   - {t: '$$mdi:alpha-w-box$$', s: '$$mdi:apple-keyboard-caps$$'}
-  - {t: '$$mdi:keyboard-return$$', h: Sym}
+  - {t: 'Gui+$$mdi:keyboard-return$$', type: enter}
   - $$mdi:apple-keyboard-shift$$
   - {t: Gui+0, s: Gui+)}
   - {t: Gui+1, s: Gui+!}
@@ -532,13 +532,13 @@ layers:
   - PG UP
   - END
   - INS
-  - $$mdi:apple-keyboard-shift$$
+  - Gui+$$mdi:apple-keyboard-shift$$
   - {t: '$$mdi:minus-circle-outline$$', type: held}
+  - Gui+$$mdi:apple-keyboard-option$$
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: 'Gui+$$mdi:keyboard-return$$', type: enter}
+  - Gui+SPC
   - {t: 'Gui+$$mdi:backspace$$', type: backspace}
-  - $$mdi:apple-keyboard-option$$
+  - Gui+$$mdi:apple-keyboard-option$$
 combos:
 - p: [42, 43]
   k: {t: LGUI, h: Media}
