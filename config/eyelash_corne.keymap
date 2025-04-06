@@ -63,7 +63,7 @@ U_MT(LCTRL, ESC) K10  K11  K12  K13  K14             U_WH_R U_BTN1 U_WH_L  K15  
 &kp Q,             &kp W,             &kp E,             &kp R,             &kp T,             &kp Y,             &kp U,             &kp I,             &kp O,             &kp P,             \
 &kp A,             &kp S,             &kp D,             &kp F,             &kp G,             &kp H,             &kp J,             &kp K,             &kp L,             &kp SEMI,           \
 U_LT(U_BUTTON, Z), U_MT(RALT, X),     &kp C,             &kp V,             &kp B,             &kp N,             &kp M,             &kp COMMA,         U_MT(RALT, DOT),   U_LT(U_BUTTON, SLASH),\
-U_NP,              U_NP,              U_LT(U_WIN, ESC),  U_LT(U_NAV, SPACE),&kp LALT,          U_LT(U_SYM, RET),  U_LT(U_NUM, BSPC), U_LT(U_FUN, DEL),  U_NP,              U_NP
+U_NP,              U_NP,              U_LT(U_WIN, ESC),  &kp LALT,          U_LT(U_NAV, SPACE),U_LT(U_NAV, SPACE),U_LT(U_SYM, BSPC), U_LT(U_FUN, DEL),  U_NP,              U_NP
 
 // Colemak as extra layer
 #define MIRYOKU_LAYER_EXTRA \
@@ -85,10 +85,10 @@ U_UND,             U_CUT,             U_CPY,             U_PST,             U_RD
 U_NP,              U_NP,              U_BTN3,            U_BTN1,            U_BTN2,            U_BTN2,            U_BTN1,            U_BTN3,            U_NP,              U_NP
 
 #define MIRYOKU_LAYER_NAV \
-U_BOOT,            &u_to_U_TAP,       &u_to_U_EXTRA,     &u_to_U_BASE,      U_NA,              U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,             \
-&kp LGUI,          &kp LALT,          &kp LCTRL,         &kp LSHFT,         U_NA,              &kp LEFT,          &kp DOWN,          &kp UP,            &kp RIGHT,         &u_caps_word,      \
-U_NA,              &kp RALT,          &u_to_U_NUM,       &u_to_U_NAV,       U_NA,              &kp HOME,          &kp PG_DN,         &kp PG_UP,         &kp END,           &kp INS,           \
-U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              &kp RET,           &kp BSPC,          &kp DEL,           U_NP,              U_NP
+&kp LBKT,          &kp N7,            &kp N8,            &kp N9,            &kp RBKT,          U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,             \
+&kp SQT,           &kp N4,            &kp N5,            &kp N6,            &kp EQUAL,         &kp LEFT,          &kp DOWN,          &kp UP,            &kp RIGHT,         &u_caps_word,      \
+&kp GRAVE,         &kp N1,            &kp N2,            &kp N3,            &kp BSLH,          &kp HOME,          &kp PG_DN,         &kp PG_UP,         &kp END,           &kp INS,           \
+U_NP,              U_NP,              &kp DOT,           &kp N0,            &kp MINUS,         &kp RET,           &kp BSPC,          &kp DEL,           U_NP,              U_NP
 
 #define MIRYOKU_LAYER_MOUSE \
 U_BOOT,            &u_to_U_TAP,       &u_to_U_EXTRA,     &u_to_U_BASE,      U_NA,              U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND,             \
@@ -124,12 +124,6 @@ U_NP,              U_NP,              &kp K_APP,         &kp TAB,           &kp 
 // miryoku defines 10 layers, with 0-based index, so next one is number 10
 // Adds LALT on right thumb, for Mod+Alt combined modifier
 #define U_WIN 10
-#define MIRYOKU_LAYERMAPPING_WIN MIRYOKU_MAPPING
-#define MIRYOKU_LAYER_WIN \
-&kp LG(Q),         &kp LG(N7),        &kp LG(N8),        &kp LG(N9),        &kp LG(PSCRN),     &kp LG(R),         &kp LG(Z),         U_CPY,             U_CUT,             U_UND,             \
-&kp LG(A),         &kp LG(N4),        &kp LG(N5),        &kp LG(N6),        &kp LG(SLCK),      &kp LG(H),         &kp LG(J),         &kp LG(K),         &kp LG(L),         &u_caps_word,      \
-&kp LG(N0),        &kp LG(N1),        &kp LG(N2),        &kp LG(N3),        &kp LG(SPACE),     &kp HOME,          &kp PG_DN,         &kp PG_UP,         &kp END,           &kp INS,           \
-U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              &kp LG(RET),       &kp LG(BSPC),      &kp LALT,          U_NP,              U_NP
 
 // Load Miryoku logic
 #include "../modules/miryoku/miryoku/miryoku.h"
@@ -146,8 +140,19 @@ U_NP,              U_NP,              U_NA,              U_NA,              U_NA
       sensor-bindings = < ENC_VOL >; \
     };
 MIRYOKU_LAYER_LIST
-MIRYOKU_X(WIN, "Win")
 #undef MIRYOKU_X
+
+    WIN {
+      display-name = "Win";
+      bindings = <
+U_LT(U_NUM, TAB)  &kp LG(Q)   &kp LG(N7)  &kp LG(N8)  &kp LG(N9)     &kp LG(PSCRN)                    U_WH_D         &kp LG(R)   &kp LG(Z)    U_CPY      U_CUT      U_UND         &kp LG(BKSP)
+U_MT(LCTRL, ESC)  &kp LG(A)   &kp LG(N4)  &kp LG(N5)  &kp LG(N6)     &kp LG(SLCK)              U_WH_R U_BTN1 U_WH_L  &kp LG(H)   &kp LG(J)    &kp LG(K)  &kp LG(L)  &u_caps_word  &kp LG(RET)
+&kp LSHFT         &kp LG(N0)  &kp LG(N1)  &kp LG(N2)  &kp LG(N3)     &kp LG(SPACE)  &kp C_MUTE        U_WH_U         &kp HOME    &kp PG_DN    &kp PG_UP  &kp END    &kp INS       &kp LG(RSHFT)
+                                          U_NA        &kp LG(LALT)   U_NA                                            &kp LG(SPC) &kp LG(BSPC) &kp LG(LALT)
+      >;
+      sensor-bindings = < ENC_VOL >;
+    };
+
   };
 };
 
