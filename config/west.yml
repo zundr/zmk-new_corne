@@ -4,6 +4,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: urob
       url-base: https://github.com/urob
+    - name: m165437
+      url-base: https://github.com/M165437
 
   projects:
     # My keyboard layout
@@ -32,6 +34,12 @@ manifest:
       url: https://github.com/zundr/miryoku_zmk
       revision: master
       path: modules/miryoku
+
+    # Nice view gem animation
+    - name: nice-view-gem
+      path: modules/nice-view-gem
+      remote: m165437
+      revision: main
 
   self:
     path: config
