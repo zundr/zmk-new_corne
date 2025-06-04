@@ -29,7 +29,7 @@ manifest:
       revision: v0.1+locality
       path: modules/zmk/leader-key
 
-    # Myrioku
+    # Miryoku
     - name: miryoku
       url: https://github.com/zundr/miryoku_zmk
       revision: master
